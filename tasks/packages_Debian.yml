@@ -9,11 +9,15 @@
 ##
 
 - name: Update APT Cache
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   apt:
     update_cache: yes
     cache_valid_time: 86400
 
 - name: Install OS Dependencies
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   apt: name={{ item }} state=installed
   become: true
   with_items:
@@ -34,6 +38,8 @@
   become: true
 
 - name: Jenkins Install
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   apt:
     name: jenkins
     # Setting this to 'latest' is perhaps debatable, but it seems silly not to

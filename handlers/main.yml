@@ -1,6 +1,22 @@
 ---
-
 - name: Restart Service 'jenkins'
-  # This 'include' hack allows a single handler to run multiple tasks.
-  # Reference: https://github.com/ansible/ansible/issues/14270
-  include: ../handlers/restart_service.yml
+  service:
+    name: jenkins
+    state: restarted
+  notify: Wait for Jenkins to bind to TCP port
+  become: true
+
+- name: Wait for Jenkins to bind to TCP port
+  wait_for: port={{ jenkins_port }} delay=10
+  notify: Wait for Jenkins HTTP
+  changed_when: True
+
+- name: Wait for Jenkins HTTP
+  uri:
+    url: "http://localhost:{{ jenkins_port }}{{ jenkins_context_path | default('') }}/login"
+    status_code: 200
+  register: jenkins_login_page
+  until: jenkins_login_page.status == 200
+  retries: 60
+  delay: 1
+
