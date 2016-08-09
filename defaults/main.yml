@@ -50,3 +50,10 @@ jenkins_plugins_recommended:
 # The additional plugins that users of this role would like to be installed 
 # (must be overridden).
 jenkins_plugins_extra: []
+
+# The approved Groovy signatures of form
+# "method CLASS_NAME METHOD_NAME ARGUMENT [ARGUMENT]".
+# for example:
+#  'method groovy.lang.Binding hasVariable java.lang.String'
+# once defined, they are visible at http://localhost:8080/scriptApproval
+jenkins_approved_signatures: []

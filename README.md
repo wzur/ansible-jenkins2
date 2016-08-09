@@ -37,6 +37,15 @@ Override this variable to support an alternative authorization system (i.e.  sec
 
 Override this variable to install additional Jenkins plugins. These would be in addition to the plugins recommended by Jenkins 2's new setup wizard, which are installed automatically by this role (see `jenkins_plugins_recommended` in [defaults/main.yml](defaults/main.yml)).
 
+    # The approved Groovy signatures of form
+    # "method CLASS_NAME METHOD_NAME ARGUMENT [ARGUMENT]".
+    # for example:
+    #  'method groovy.lang.Binding hasVariable java.lang.String'
+    # once defined, they are visible at http://localhost:8080/scriptApproval
+    jenkins_approved_signatures: []
+
+Override this variable to approve Groovy signatures with `script-approval` Jenkins plugin. Once a signature is approved, ie. whitelisted, it is possible to use it in sandboxed Groovy scripts, specifically, in Pipeline's Jenkinsfile
+    
 Dependencies
 ------------
 
