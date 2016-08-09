@@ -1,2 +1,3 @@
 # Ignore Eclipse metadata
 .project
+/.idea/
